@@ -1,0 +1,40 @@
+schema: '2.0'
+stages:
+  validate_data:
+    cmd: python 
+      hybrid_recommedation_system/hybrid_recommedation_system/validate_data.py
+    deps:
+    - path: hybrid_recommedation_system/data/cleaned_data.csv
+      hash: md5
+      md5: ad73ab9b7c97fed0f3cc26fc9b24f8c6
+      size: 13712182
+    - path: hybrid_recommedation_system/data/collab_filtered_data.csv
+      hash: md5
+      md5: b204d61ef6b47e73bbcd7eb0a673676e
+      size: 4385925
+    - path: hybrid_recommedation_system/data/interaction_matrix.npz
+      hash: md5
+      md5: fc64e1a2fdd27d36453af055667b9d01
+      size: 30219044
+    - path: hybrid_recommedation_system/data/track_ids.npy
+      hash: md5
+      md5: f4d1766e2a595bcb110bd3ee09b1d500
+      size: 1150256
+    - path: hybrid_recommedation_system/data/transformed_data.npz
+      hash: md5
+      md5: e86b193b5acc5e971dea443d2a37851c
+      size: 2724236
+    - path: hybrid_recommedation_system/data/transformed_hybrid_data.npz
+      hash: md5
+      md5: 63c0055d355eeb22eb2b016dc9a726c9
+      size: 901232
+    - path: 
+        hybrid_recommedation_system/hybrid_recommedation_system/validate_data.py
+      hash: md5
+      md5: 8a923d34b4f80dee5bb67a6d5d717848
+      size: 2615
+    outs:
+    - path: hybrid_recommedation_system/reports/data_validation.json
+      hash: md5
+      md5: a2bc61ea815c49022351e9680ae1030e
+      size: 675

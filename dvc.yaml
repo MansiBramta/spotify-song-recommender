@@ -1,0 +1,14 @@
+
+stages:
+  validate_data:
+    cmd: python hybrid_recommedation_system/hybrid_recommedation_system/validate_data.py
+    deps:
+      - hybrid_recommedation_system/hybrid_recommedation_system/validate_data.py
+      - hybrid_recommedation_system/data/cleaned_data.csv
+      - hybrid_recommedation_system/data/transformed_data.npz
+      - hybrid_recommedation_system/data/collab_filtered_data.csv
+      - hybrid_recommedation_system/data/interaction_matrix.npz
+      - hybrid_recommedation_system/data/track_ids.npy
+      - hybrid_recommedation_system/data/transformed_hybrid_data.npz
+    outs:
+      - hybrid_recommedation_system/reports/data_validation.json
