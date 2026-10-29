@@ -1,0 +1,4 @@
+[core]
+    remote = s3remote
+['remote "s3remote"']
+    url = s3://spotify-recommender-dvc-mansi-2026/spotify-song-recommender
