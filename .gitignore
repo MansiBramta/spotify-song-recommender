@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+myenv/
+venv/
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# DVC cache
+.dvc/cache/
+
+# Model artifacts
+models/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and OS
+.vscode/
+.DS_Store
+Thumbs.db
