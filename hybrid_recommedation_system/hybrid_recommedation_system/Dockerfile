@@ -1,4 +1,3 @@
-
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -10,7 +9,8 @@ COPY hybrid_recommedation_system/requirements.txt ./requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY hybrid_recommedation_system/hybrid_recommedation_system/ .
+COPY hybrid_recommedation_system/hybrid_recommedation_system/ ./
+COPY hybrid_recommedation_system/data/ ./data/
 
 EXPOSE 8501
 

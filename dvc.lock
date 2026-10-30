@@ -14,8 +14,8 @@ stages:
       size: 4385925
     - path: hybrid_recommedation_system/data/interaction_matrix.npz
       hash: md5
-      md5: fc64e1a2fdd27d36453af055667b9d01
-      size: 30219044
+      md5: 8b9d4284bb2a42f4106e74990b4527e5
+      size: 30223961
     - path: hybrid_recommedation_system/data/track_ids.npy
       hash: md5
       md5: f4d1766e2a595bcb110bd3ee09b1d500

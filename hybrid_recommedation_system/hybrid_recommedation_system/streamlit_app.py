@@ -28,7 +28,11 @@ st.write(
 # Data directory
 # --------------------------------------------------
 
-DATA = Path(__file__).parent.parent / "data"
+HERE = Path(__file__).parent
+DATA = next(
+    (p for p in (HERE / "data", HERE.parent / "data") if p.exists()),
+    HERE.parent / "data",
+)
 
 
 # --------------------------------------------------
@@ -595,39 +599,34 @@ if filtering_type == "Hybrid Filtering":
 # Include songs from both datasets so content-only songs
 # remain selectable in hybrid mode.
 
-song_catalogue = pd.concat(
-    [
-        songs_data[["name", "artist"]],
-        filtered_data[["name", "artist"]],
-    ],
-    ignore_index=True,
-).fillna("")
+@st.cache_resource(show_spinner=False)
+def build_song_catalogue():
+    catalogue = pd.concat(
+        [songs_data[["name", "artist"]], filtered_data[["name", "artist"]]],
+        ignore_index=True,
+    ).fillna("").drop_duplicates()
+    catalogue["label"] = catalogue["name"].astype(str) + " — " + catalogue["artist"].astype(str)
+    return catalogue.sort_values("label").reset_index(drop=True)
 
-song_catalogue = song_catalogue.drop_duplicates()
 
-song_catalogue["label"] = (
-    song_catalogue["name"].astype(str)
-    + " — "
-    + song_catalogue["artist"].astype(str)
-)
+song_catalogue = build_song_catalogue()
 
-song_catalogue = song_catalogue.sort_values("label")
+query = st.text_input("Search for a song or artist:", placeholder="e.g. whenever, wherever")
 
-song_options = song_catalogue["label"].tolist()
-
-if not song_options:
-    st.error("No songs are available in the datasets.")
+if not query.strip():
+    st.info("Type part of a song or artist name to begin.")
     st.stop()
 
+matches = song_catalogue[
+    song_catalogue["label"].str.contains(query.strip(), case=False, regex=False)
+].head(50)
 
-selected_label = st.selectbox(
-    "Select a song and artist:",
-    song_options,
-)
+if matches.empty:
+    st.warning("No records for this song. Try something else?")
+    st.stop()
 
-selected_song_row = song_catalogue[
-    song_catalogue["label"] == selected_label
-].iloc[0]
+selected_label = st.selectbox("Select a song and artist:", matches["label"].tolist())
+selected_song_row = matches[matches["label"] == selected_label].iloc[0]
 
 song_name = str(selected_song_row["name"])
 artist_name = str(selected_song_row["artist"])
